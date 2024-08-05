@@ -1,20 +1,25 @@
 package com.example.examplemod;
 
+import com.example.examplemod.client.ExampleModClient;
 import com.mojang.logging.LogUtils;
+import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 
 public class ExampleMod {
-
-    /** The mod id for  examplemod. */
     public static final String MOD_ID = "examplemod";
-
-    /** The logger for examplemod. */
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    /**
-     * Initializes the mod.
-     */
-    public static void init() {
+	private static ExampleMod INSTANCE;
 
+    public ExampleMod() {
+		ExampleMod.INSTANCE = this;
     }
+
+	public static ResourceLocation location(String path) {
+		return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+	}
+
+	public static ExampleMod getINSTANCE() {
+		return INSTANCE;
+	}
 }

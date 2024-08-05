@@ -16,8 +16,12 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.example.examplemod.fabric.ExampleModFabric"
-    ]
+			"com.example.examplemod.ExampleModFabric"
+    ],
+		"client": [
+			"com.example.examplemod.client.ExampleModClientFabric"
+
+		]
   },
   "mixins": [
     "${modId}.mixins.json",
