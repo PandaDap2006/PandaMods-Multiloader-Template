@@ -11,7 +11,6 @@ val supportedModLoaders: String by project
 
 architectury {
 	common(supportedModLoaders.split(","))
-	platformSetupLoomIde()
 }
 
 loom.accessWidenerPath.set(file("src/main/resources/${modId}.accesswidener"))

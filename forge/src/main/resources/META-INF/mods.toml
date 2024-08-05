@@ -1,27 +1,28 @@
 modLoader = "javafml"
-loaderVersion = "[51,)"
+loaderVersion = "*"
 issueTrackerURL = ""
 license = "Insert License Here"
 
 [[mods]]
-modId = "examplemod"
-version = "${version}"
-displayName = "ExampleMod"
-authors = "Example Author"
+modId = "${modId}"
+version = "${modVersion}"
+displayName = "${modName}"
+authors = "${modAuthor}"
 description = '''
+${modDescription}
 '''
-#logoFile = ""
+logoFile = "assets/${modId}/icon.png"
 
-[[dependencies.examplemod]]
+[[dependencies.${modId}]]
 modId = "forge"
-mandatory = true
-versionRange = "[51,)"
+type = "required"
+versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.${modId}]]
 modId = "minecraft"
-mandatory = true
-versionRange = "[1.21]"
+type = "required"
+versionRange = "${forgeCompatibleVersion}"
 ordering = "NONE"
 side = "BOTH"

@@ -54,6 +54,10 @@ val parchmentMinecraftVersion: String by project
 
 val manifoldVersion: String by project
 
+val fabricCompatibleVersions: String by project
+val forgeCompatibleVersions: String by project
+val neoForgeCompatibleVersions: String by project
+
 architectury.minecraft = minecraftVersion
 
 subprojects {
@@ -129,7 +133,11 @@ allprojects {
 					"modVersion" to modVersion,
 					"modName" to modName,
 					"modDescription" to modDescription,
-					"modAuthor" to modAuthor
+					"modAuthor" to modAuthor,
+
+					"fabricCompatibleVersions" to fabricCompatibleVersions,
+					"forgeCompatibleVersions" to forgeCompatibleVersions,
+					"neoForgeCompatibleVersions" to neoForgeCompatibleVersions
 				))
 			}
 		}
