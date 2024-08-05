@@ -6,7 +6,6 @@ import net.neoforged.fml.common.Mod;
 
 @Mod(value = ExampleMod.MOD_ID, dist = Dist.CLIENT)
 public class ExampleModClientNeoForge {
-	@SuppressWarnings("FieldMayBeFinal")
 	private static ExampleModClientNeoForge INSTANCE;
 
     public ExampleModClientNeoForge() {

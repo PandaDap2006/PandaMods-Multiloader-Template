@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod(ExampleMod.MOD_ID)
 public class ExampleModForge {
-	@SuppressWarnings("FieldMayBeFinal")
 	private static ExampleModForge INSTANCE;
 
     public ExampleModForge() {

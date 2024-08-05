@@ -4,7 +4,6 @@ import net.neoforged.fml.common.Mod;
 
 @Mod(ExampleMod.MOD_ID)
 public class ExampleModNeoForge {
-	@SuppressWarnings("FieldMayBeFinal")
 	private static ExampleModNeoForge INSTANCE;
 
     public ExampleModNeoForge() {

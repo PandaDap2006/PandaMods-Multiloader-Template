@@ -8,7 +8,6 @@ import net.minecraftforge.fml.common.Mod;
 
 @OnlyIn(Dist.CLIENT)
 public class ExampleModClientForge {
-	@SuppressWarnings("FieldMayBeFinal")
 	private static ExampleModClientForge INSTANCE;
 
     public ExampleModClientForge() {
