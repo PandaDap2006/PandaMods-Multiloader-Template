@@ -11,13 +11,38 @@ plugins {
 	id("systems.manifold.manifold-gradle-plugin") version "0.0.2-alpha"
 }
 
+fun writeBuildGradlePredefine(AvailableVersion: List<String>, versionIndex: Int) {
+	val sb = StringBuilder()
+
+	sb.append("# DON'T TOUCH THIS FILE, This is handled by the build script\n")
+
+	for ((index, s) in AvailableVersion.withIndex()) {
+		val versionString = s.replace(".", "_")
+		sb.append("MC_${versionString}=${index}\n")
+		ext.set("MC_${versionString}", index.toString())
+
+		if (versionIndex == index) {
+			sb.append("MC_VER=${index}\n")
+			ext.set("MC_VER", index.toString())
+		}
+	}
+
+	File(projectDir, "build.properties").writeText(sb.toString())
+}
+
+project.gradle.extra.properties.forEach { prop ->
+	ext.set(prop.key, prop.value)
+}
+
+writeBuildGradlePredefine(project.properties["availableVersions"] as List<String>, project.properties["versionIndex"] as Int)
+
 // gradle.properties
 val projectArchivesName: String by project
 val projectGroup: String by project
 
 val modId: String by project
 val modVersion: String by project
-val modJavaVersion: String by project
+val javaVersion: String by project
 val modName: String by project
 val modDescription: String by project
 val modAuthor: String by project
@@ -75,7 +100,7 @@ allprojects {
 
     tasks.withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
-        options.release.set(JavaLanguageVersion.of(modJavaVersion).asInt())
+        options.release.set(JavaLanguageVersion.of(javaVersion).asInt())
 		options.compilerArgs.add("-Xplugin:Manifold")
     }
 
