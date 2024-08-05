@@ -1,11 +1,11 @@
 import net.fabricmc.loom.api.LoomGradleExtensionAPI
 
 plugins {
+	id("architectury-plugin") version "3.4-SNAPSHOT"
+    id("dev.architectury.loom") version "1.6-SNAPSHOT" apply false
+
 	java
 	idea
-
-    id("architectury-plugin") version "3.4-SNAPSHOT"
-    id("dev.architectury.loom") version "1.7-SNAPSHOT" apply false
 
 	id("com.github.johnrengelman.shadow") version "8.1.1" apply false
 	id("systems.manifold.manifold-gradle-plugin") version "0.0.2-alpha"
@@ -63,7 +63,6 @@ architectury.minecraft = minecraftVersion
 subprojects {
     apply(plugin = "dev.architectury.loom")
 	apply(plugin = "com.github.johnrengelman.shadow")
-	apply(plugin = "maven-publish")
 
     val loom = project.extensions.getByName<LoomGradleExtensionAPI>("loom")
     loom.silentMojangMappingsLicense()
@@ -81,7 +80,7 @@ subprojects {
     @Suppress("UnstableApiUsage")
     dependencies {
         "minecraft"("com.mojang:minecraft:${minecraftVersion}")
-        "mappings"(loom.layered{
+        "mappings"(loom.layered {
             officialMojangMappings()
             parchment("org.parchmentmc.data:parchment-${parchmentMinecraftVersion}:${parchmentVersion}@zip")
         })
@@ -92,13 +91,13 @@ subprojects {
 }
 
 allprojects {
-    apply(plugin = "java")
-	apply(plugin = "idea")
-
-    apply(plugin = "architectury-plugin")
+	apply(plugin = "architectury-plugin")
     apply(plugin = "maven-publish")
 
-	base.archivesName.set(projectArchivesName)
+	apply(plugin = "java")
+	apply(plugin = "idea")
+
+	base.archivesName = projectArchivesName
     version = "${modVersion}-${minecraftVersion}"
     group = projectGroup
 

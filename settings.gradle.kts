@@ -28,7 +28,7 @@ fun loadProperties() {
 
 	val availableVersions: MutableList<String> = fileTree("versionProperties").files.map { file -> file.name }.toMutableList()
 	for ((index, s) in availableVersions.withIndex()) {
-		availableVersions[index] = s.replace("\\.properties", "")
+		availableVersions[index] = s.replace(".properties", "")
 	}
 
 	availableVersions.sort()
@@ -37,7 +37,7 @@ fun loadProperties() {
 	var selectedVersion = minecraftVersion
 	var versionIndex = availableVersions.indexOf(minecraftVersion)
 	if (versionIndex == -1) {
-		println("No 'game_version' set or the set 'game_version' is invalid! Defaulting to ${defaultVersion}.")
+		println("No 'minecraftVersion' set or the set 'minecraftVersion' is invalid! Defaulting to ${defaultVersion}.")
 		selectedVersion = defaultVersion
 		versionIndex = availableVersions.indexOf(defaultVersion)
 	}
@@ -54,9 +54,10 @@ fun loadProperties() {
 }
 loadProperties()
 
-rootProject.name = "ExampleMod"
+rootProject.name = "PandaMods Template"
 
 include("common")
-include("fabric")
-//include("forge")
-include("neoforge")
+gradle.extra.properties["supportedModLoaders"].toString().split(",").forEach {
+	println("Adding loader ${it}")
+	include(it)
+}
