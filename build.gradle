@@ -1,0 +1,163 @@
+import net.fabricmc.loom.api.LoomGradleExtensionAPI
+
+plugins {
+	id("java")
+	id("idea")
+
+	id("architectury-plugin") version "3.4-SNAPSHOT"
+    id("dev.architectury.loom") version "1.7-SNAPSHOT" apply false
+
+	id("com.github.johnrengelman.shadow") version "8.1.1" apply false
+	id("systems.manifold.manifold-gradle-plugin") version "0.0.2-alpha"
+}
+
+/**
+ * Borrowed from Distant Horizons
+ */
+def writeBuildGradlePredefine(List<String> AvailableVersion, int versionIndex) {
+	StringBuilder sb = new StringBuilder()
+
+	sb.append("# DON'T TOUCH THIS FILE, This is handled by the build script\n")
+
+	for (int i = 0; i < AvailableVersion.size(); i++) {
+		String versionString = AvailableVersion[i].replace(".", "_")
+		sb.append("MC_" + versionString + "=" + i.toString() + "\n")
+		ext.set("MC_" + versionString, i.toString())
+
+		if (versionIndex == i) {
+			sb.append("MC_VER=" + i.toString() + "\n")
+			ext.set("MC_VER", i.toString())
+		}
+	}
+
+	new File(projectDir, "build.properties").text = sb.toString()
+}
+
+project.gradle.ext.getProperties().each { prop ->
+	ext.set(prop.key, prop.value)
+}
+
+writeBuildGradlePredefine(availableVersions, versionIndex)
+
+architectury {
+	minecraft = minecraftVersion
+}
+
+allprojects {
+	base.archivesName = projectArchivesName
+	version = "${modVersion}-${minecraftVersion}"
+	group = projectGroup
+}
+
+subprojects {
+	boolean isMinecraftSubProject = findProject("common") != project
+
+	apply plugin: "java"
+	apply plugin: "idea"
+	apply plugin: "architectury-plugin"
+	apply plugin: "dev.architectury.loom"
+
+	apply plugin: "maven-publish"
+	apply plugin: "com.github.johnrengelman.shadow"
+
+	base.archivesName.set("${base.archivesName}-${project.name}")
+
+	loom {
+		silentMojangMappingsLicense()
+	}
+
+	configurations {
+		common
+		shadowCommon
+		compileClasspath.extendsFrom(common)
+		runtimeClasspath.extendsFrom(common)
+	}
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+
+	    maven {
+		    name = "Parchment"
+		    url = "https://maven.parchmentmc.org"
+	    }
+	    maven {
+		    name = "Fabric"
+		    url = "https://maven.fabricmc.net/"
+	    }
+	    maven {
+		    name = "Forge"
+		    url = "https://maven.minecraftforge.net/"
+	    }
+	    maven {
+		    name = "NeoForge"
+		    url = "https://maven.neoforged.net/releases/"
+	    }
+    }
+
+    dependencies {
+        minecraft("com.mojang:minecraft:${minecraftVersion}")
+        mappings(loom.layered {
+            officialMojangMappings()
+            parchment("org.parchmentmc.data:parchment-${parchmentMinecraftVersion}:${parchmentVersion}@zip")
+        })
+
+        compileOnly("org.jetbrains:annotations:24.1.0")
+		annotationProcessor("systems.manifold:manifold-preprocessor:${manifoldVersion}")
+    }
+
+	processResources {
+		inputs.property("version", version)
+
+		filesMatching(["META-INF/mods.toml", "META-INF/neoforge.mods.toml", "pack.mcmeta", "fabric.mod.json"]) {
+			expand([
+					minecraftVersion: minecraftVersion,
+
+					modId: modId,
+					modVersion: modVersion,
+					modName: modName,
+					modDescription: modDescription,
+					modAuthor: modAuthor,
+
+					fabricCompatibleVersions: fabricCompatibleVersions,
+					forgeCompatibleVersions: forgeCompatibleVersions,
+					neoForgeCompatibleVersions: neoForgeCompatibleVersions
+			])
+		}
+	}
+
+	if (isMinecraftSubProject) {
+		shadowJar {
+			configurations = [project.configurations.shadowCommon]
+			archiveClassifier.set("dev-shadow")
+		}
+
+		remapJar {
+			inputFile.set(shadowJar.archiveFile)
+			dependsOn(shadowJar)
+		}
+	}
+
+	tasks.withType(JavaCompile).configureEach {
+		options.encoding = "UTF-8"
+		options.release = 21
+		options.compilerArgs += ["-Xplugin:Manifold"]
+	}
+
+	jar {
+		manifest {
+			attributes([
+					"Specification-Title": modName,
+					"Specification-Vendor": modAuthor,
+					"Specification-Version": modVersion,
+					"Implementation-Title": name,
+					"Implementation-Vendor": modAuthor,
+					"Implementation-Version": archiveVersion
+			])
+		}
+	}
+
+	java {
+		withSourcesJar()
+	}
+}
