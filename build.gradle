@@ -1,14 +1,12 @@
-import net.fabricmc.loom.api.LoomGradleExtensionAPI
-
 plugins {
-	id("java")
-	id("idea")
+	id"java"
+	id"idea"
 
-	id("architectury-plugin") version "3.4-SNAPSHOT"
-    id("dev.architectury.loom") version "1.7-SNAPSHOT" apply false
+	id"architectury-plugin" version "3.4-SNAPSHOT"
+    id"dev.architectury.loom" version "1.7-SNAPSHOT" apply false
 
-	id("com.github.johnrengelman.shadow") version "8.1.1" apply false
-	id("systems.manifold.manifold-gradle-plugin") version "0.0.2-alpha"
+	id"com.github.johnrengelman.shadow" version "8.1.1" apply false
+	id"systems.manifold.manifold-gradle-plugin" version "0.0.2-alpha"
 }
 
 /**
