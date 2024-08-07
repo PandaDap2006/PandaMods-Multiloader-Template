@@ -1,5 +1,5 @@
 architectury {
-	common(supportedModLoaders.split(","))
+	common(supportedModLoaders.strip().split(","))
 }
 
 loom {

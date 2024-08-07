@@ -23,7 +23,7 @@ side = "BOTH"
 [[dependencies.${modId}]]
 modId = "minecraft"
 type = "required"
-versionRange = "${neoForgeCompatibleVersion}"
+versionRange = "${neoForgeCompatibleVersions}"
 ordering = "NONE"
 side = "BOTH"
 

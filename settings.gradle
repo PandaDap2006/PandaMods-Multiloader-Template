@@ -63,7 +63,7 @@ loadProperties()
 rootProject.name = "PandaMods Template"
 
 include("common")
-for (loader in ((String) gradle.supportedModLoaders).split(",")) {
+for (loader in ((String) gradle.supportedModLoaders).strip().split(",")) {
 	def loaderName = loader.strip()
 	println "Adding loader " + loaderName
 	include(loaderName)
