@@ -73,6 +73,13 @@ subprojects {
 		shadowCommon
 		compileClasspath.extendsFrom(common)
 		runtimeClasspath.extendsFrom(common)
+
+		jarShadow
+		implementation.extendsFrom(jarShadow)
+
+		modShadow
+		modImplementation.extendsFrom(modShadow)
+		include.extendsFrom(modShadow)
 	}
 
 	repositories {
@@ -130,7 +137,7 @@ subprojects {
 
 	if (isMinecraftSubProject) {
 		shadowJar {
-			configurations = [project.configurations.shadowCommon]
+			configurations = [project.configurations.shadowCommon, project.configurations.jarShadow]
 			archiveClassifier.set("dev-shadow")
 		}
 
@@ -142,7 +149,7 @@ subprojects {
 
 	tasks.withType(JavaCompile).configureEach {
 		options.encoding = "UTF-8"
-		options.release = 21
+		options.release = projectJavaVersion as Integer
 		options.compilerArgs += ["-Xplugin:Manifold"]
 	}
 
