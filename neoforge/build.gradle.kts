@@ -1,11 +1,5 @@
 // gradle.properties
-val modId: String by project
-
-val minecraftVersion: String by project
 val neoForgeVersion: String by project
-
-val parchmentVersion: String by project
-val parchmentMinecraftVersion: String by project
 
 architectury {
     platformSetupLoomIde()
@@ -38,8 +32,6 @@ tasks {
 		injectAccessWidener = true
 		atAccessWideners.add(loom.accessWidenerPath.get().asFile.name)
     }
-
-    jar.get().archiveClassifier.set("dev")
 
     sourcesJar {
         val commonSources = project(":common").tasks.sourcesJar

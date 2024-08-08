@@ -179,6 +179,8 @@ subprojects {
 				))
 			}
 		}
+
+		jar.get().archiveClassifier.set("dev")
 	}
 
 	java {

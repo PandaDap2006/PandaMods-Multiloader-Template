@@ -30,8 +30,6 @@ tasks {
         injectAccessWidener.set(true)
     }
 
-    jar.get().archiveClassifier.set("dev")
-
     sourcesJar {
         val commonSources = project(":common").tasks.sourcesJar
         dependsOn(commonSources)

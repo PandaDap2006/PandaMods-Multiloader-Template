@@ -1,11 +1,7 @@
 // gradle.properties
 val modId: String by project
 
-val minecraftVersion: String by project
 val forgeVersion: String by project
-
-val parchmentVersion: String by project
-val parchmentMinecraftVersion: String by project
 
 architectury {
 	platformSetupLoomIde()
@@ -48,8 +44,6 @@ tasks {
 	remapJar {
 		injectAccessWidener = true
 	}
-
-    jar.get().archiveClassifier.set("dev")
 
     sourcesJar {
         val commonSources = project(":common").tasks.sourcesJar
