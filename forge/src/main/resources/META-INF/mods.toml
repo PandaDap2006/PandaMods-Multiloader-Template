@@ -15,14 +15,14 @@ logoFile = "assets/${modId}/icon.png"
 
 [[dependencies.${modId}]]
 modId = "forge"
-type = "required"
+mandatory = true
 versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${modId}]]
 modId = "minecraft"
-type = "required"
+mandatory = true
 versionRange = "${forgeCompatibleVersions}"
 ordering = "NONE"
 side = "BOTH"

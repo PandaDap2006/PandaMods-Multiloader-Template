@@ -49,10 +49,10 @@ allprojects {
 }
 
 subprojects {
-	boolean isMinecraftSubProject = findProject("common") != project
-	boolean isFabric = findProject("fabric") == project
-	boolean isForge = findProject("forge") == project
-	boolean isNeoForge = findProject("neoforge") == project
+	boolean isMinecraftSubProject = findProject("common") && project("common") != project
+	boolean isFabric = findProject("fabric") && findProject("fabric") == project
+	boolean isForge = findProject("forge") && findProject("forge") == project
+	boolean isNeoForge = findProject("neoforge") && findProject("neoforge") == project
 
 	apply plugin: "java"
 	apply plugin: "idea"
