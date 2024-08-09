@@ -148,7 +148,7 @@ subprojects {
 
 	tasks {
 		processResources {
-			inputs.properties.putAll(mapOf(
+			val properties = mapOf(
 				"minecraftVersion" to minecraftVersion,
 
 				"modId" to modId,
@@ -160,10 +160,11 @@ subprojects {
 				"fabricCompatibleVersions" to fabricCompatibleVersions,
 				"forgeCompatibleVersions" to forgeCompatibleVersions,
 				"neoForgeCompatibleVersions" to neoForgeCompatibleVersions
-			))
+			)
 
+			inputs.properties(properties)
 			filesMatching(listOf("META-INF/mods.toml", "META-INF/neoforge.mods.toml", "pack.mcmeta", "fabric.mod.json")) {
-				expand(inputs.properties)
+				expand(properties)
 			}
 		}
 
