@@ -4,13 +4,7 @@ import net.neoforged.fml.common.Mod;
 
 @Mod(ExampleMod.MOD_ID)
 public class ExampleModNeoForge {
-	private static ExampleModNeoForge INSTANCE;
-
     public ExampleModNeoForge() {
-		ExampleModNeoForge.INSTANCE = this;
+		ExampleMod.init();
     }
-
-	public static ExampleModNeoForge getINSTANCE() {
-		return INSTANCE;
-	}
 }

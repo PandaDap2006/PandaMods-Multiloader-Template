@@ -8,13 +8,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @OnlyIn(Dist.CLIENT)
 public class ExampleModClientForge {
-	private static ExampleModClientForge INSTANCE;
-
     public ExampleModClientForge() {
-		ExampleModClientForge.INSTANCE = this;
+		ExampleModClient.init();
     }
-
-	public static ExampleModClientForge getINSTANCE() {
-		return INSTANCE;
-	}
 }

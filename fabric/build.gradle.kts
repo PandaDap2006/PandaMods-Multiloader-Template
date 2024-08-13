@@ -13,6 +13,7 @@ loom {
 
 configurations {
     getByName("developmentFabric").extendsFrom(configurations["common"])
+    getByName("developmentFabric").extendsFrom(configurations["jarShadow"])
 }
 
 dependencies {

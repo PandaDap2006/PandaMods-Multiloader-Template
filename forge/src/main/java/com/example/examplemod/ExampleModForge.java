@@ -7,15 +7,9 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod(ExampleMod.MOD_ID)
 public class ExampleModForge {
-	private static ExampleModForge INSTANCE;
-
     public ExampleModForge() {
-		ExampleModForge.INSTANCE = this;
+		ExampleMod.init();
 
 		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ExampleModClientForge::new);
     }
-
-	public static ExampleModForge getINSTANCE() {
-		return INSTANCE;
-	}
 }

@@ -8,6 +8,7 @@ architectury {
 
 configurations {
     getByName("developmentNeoForge").extendsFrom(configurations["common"])
+    getByName("developmentNeoForge").extendsFrom(configurations["jarShadow"])
 }
 
 loom {

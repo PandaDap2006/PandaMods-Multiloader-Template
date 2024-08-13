@@ -9,13 +9,6 @@ import org.slf4j.Logger;
 
 @Environment(EnvType.CLIENT)
 public class ExampleModClient {
-	private static ExampleModClient INSTANCE;
-
-    public ExampleModClient() {
-		ExampleModClient.INSTANCE = this;
+    public static void init() {
     }
-
-	public static ExampleModClient getINSTANCE() {
-		return INSTANCE;
-	}
 }

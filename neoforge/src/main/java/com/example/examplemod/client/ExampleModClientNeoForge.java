@@ -6,13 +6,7 @@ import net.neoforged.fml.common.Mod;
 
 @Mod(value = ExampleMod.MOD_ID, dist = Dist.CLIENT)
 public class ExampleModClientNeoForge {
-	private static ExampleModClientNeoForge INSTANCE;
-
     public ExampleModClientNeoForge() {
-		ExampleModClientNeoForge.INSTANCE = this;
+		ExampleModClient.init();
     }
-
-	public static ExampleModClientNeoForge getINSTANCE() {
-		return INSTANCE;
-	}
 }
